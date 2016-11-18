@@ -1,5 +1,6 @@
 CREATE TABLE crimes_uk_stop_and_search
 (
+    id INT AUTO_INCREMENT NOT NULL,
     type VARCHAR(40),
     date DATETIME,
     part_of_a_policing_operation VARCHAR(10),
@@ -15,11 +16,13 @@ CREATE TABLE crimes_uk_stop_and_search
     outcome VARCHAR(70),
     outcome_linked_to_object_of_search VARCHAR(10),
     removal_of_more_than_just_outer_clothing VARCHAR(10),
-    county VARCHAR(30)
+    county VARCHAR(30),
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE crimes_uk_streets
 (
+    id INT AUTO_INCREMENT NOT NULL,
     crime_id VARCHAR(80),
     month DATE,
     reported_by VARCHAR(40),
@@ -33,11 +36,13 @@ CREATE TABLE crimes_uk_streets
     last_outcome_category VARCHAR(70),
     suspect_identified VARCHAR(40),
     context TEXT,
-    county VARCHAR(30)
+    county VARCHAR(30),
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE crimes_uk_outcomes
 (
+    id INT AUTO_INCREMENT NOT NULL,
     crime_id VARCHAR(80),
     month DATE,
     county VARCHAR(30),
@@ -49,5 +54,6 @@ CREATE TABLE crimes_uk_outcomes
     lsoa_code VARCHAR(10),
     lsoa_name VARCHAR(40),
     outcome_type VARCHAR(70),
-    suspect_identified VARCHAR(40)
+    suspect_identified VARCHAR(40),
+    PRIMARY KEY(id)
 );
