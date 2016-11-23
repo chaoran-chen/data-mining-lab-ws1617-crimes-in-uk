@@ -19,7 +19,7 @@ class InsertBuffer:
 
     def insert(self, value_str: str):
         self.buffer.append(value_str)
-        if self.counter < 9999:
+        if self.counter < 19999:
             self.counter += 1
         else:
             self.flush()
