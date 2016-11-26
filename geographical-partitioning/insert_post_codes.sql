@@ -1,4 +1,4 @@
--- Can takes about 6 hours.
+-- Can take about 6 hours.
 update crimes_uk_crimes_all b
 set post_code = s.post_code,
 	region_code = s.region_code,
