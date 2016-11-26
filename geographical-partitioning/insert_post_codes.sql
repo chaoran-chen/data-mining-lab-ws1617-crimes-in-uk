@@ -1,6 +1,10 @@
 -- Can takes about 6 hours.
 update crimes_uk_crimes_all b
-set post_code = s.post_code
+set post_code = s.post_code,
+	region_code = s.region_code,
+	region_name = s.region_name,
+	msoa_code = s.msoa_code,
+	msoa_name = s.msoa_name
 from (
 	select *
 	from
