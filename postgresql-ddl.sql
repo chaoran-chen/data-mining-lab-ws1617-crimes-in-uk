@@ -249,6 +249,23 @@ CREATE TABLE crimes_uk_crimes_all
     region_name TEXT,
     msoa_code VARCHAR(20),
     msoa_name TEXT,
+    number_crimes_in_pca INT,
+    number_crimes_in_pca_other_crime INT,
+    number_crimes_in_pca_possession_of_weapons INT,
+    number_crimes_in_pca_criminal_damage_and_arson INT,
+    number_crimes_in_pca_shoplifting INT,
+    number_crimes_in_pca_robbery INT,
+    number_crimes_in_pca_burglary INT,
+    number_crimes_in_pca_public_disorder_and_weapons INT,
+    number_crimes_in_pca_drugs INT,
+    number_crimes_in_pca_other_theft INT,
+    number_crimes_in_pca_violent_crime INT,
+    number_crimes_in_pca_public_order INT,
+    number_crimes_in_pca_violence_and_sexual_offences INT,
+    number_crimes_in_pca_vehicle_crime INT,
+    number_crimes_in_pca_bicycle_theft INT,
+    number_crimes_in_pca_theft_from_the_person INT,
+    number_crimes_in_pca_anti_social_behaviour INT,
     PRIMARY KEY(id)
 );
 
