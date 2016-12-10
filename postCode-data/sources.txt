@@ -4,3 +4,6 @@ http://www.nomisweb.co.uk/query/construct/submit.asp?forward=yes&menuopt=201&sub
 
 demographicalDataByPostalCode
 http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-286262
+
+Demographic bulk data by MSOA
+http://webarchive.nationalarchives.gov.uk/20160105160709/http://ons.gov.uk/ons/guide-method/census/2011/census-data/bulk-data/bulk-data-downloads/index.html
