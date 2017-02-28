@@ -25,7 +25,7 @@ class InsertBuffer:
             self.flush()
 
 
-def parse_street_row(row, county: str):
+def parse_street_row(row, police_force: str):
     if row[10].__contains__(";"):
         # some csvs also contain a free row that I named suspect_identified
         last_outcome_category = row[10].split(";")[0]
@@ -53,10 +53,10 @@ def parse_street_row(row, county: str):
         last_outcome_category.replace("'", "''"),
         suspect_identified.replace("'", "''"),
         row[11].replace("'", "''"),
-        county.replace("'", "''"))
+        police_force.replace("'", "''"))
 
 
-def parse_outcome_row(row, county: str):
+def parse_outcome_row(row, police_force: str):
     # some csvs also contain a free row that I named suspect_identified
     if row[9].__contains__(";"):
         outcome_type = row[9].split(";")[0]
@@ -73,7 +73,7 @@ def parse_outcome_row(row, county: str):
     return "('{}', '{}-01', '{}', '{}', '{}', {}, {}, '{}', '{}', '{}', '{}', '{}'),".format(
         row[0].replace("'", "''"),
         row[1],
-        county.replace("'", "''"),
+        police_force.replace("'", "''"),
         row[2].replace("'", "''"),
         row[3].replace("'", "''"),
         latitude,
@@ -85,7 +85,7 @@ def parse_outcome_row(row, county: str):
         suspect_identified.replace("'", "''"))
 
 
-def parse_stop_and_search_row(row, county: str):
+def parse_stop_and_search_row(row, police_force: str):
     latitude = row[4]
     longitude = row[5]
     if latitude == "":
@@ -108,19 +108,19 @@ def parse_stop_and_search_row(row, county: str):
         row[12],
         row[13],
         row[14],
-        county)
+        police_force)
 
 
 INSERT_PRES = {
-    'streets': 'INSERT INTO crimes_uk_streets (crime_id, month, reported_by, falls_within,'
+    'streets': 'INSERT INTO streets (crime_id, year_month, reported_by, falls_within,'
                'longitude, latitude, location, lsoa_code, lsoa_name, crime_type, last_outcome_category,'
-               'suspect_identified, context, county) VALUES',
-    'outcomes': 'INSERT INTO crimes_uk_outcomes (crime_id, month, county, reported_by, falls_within, longitude, latitude,'
+               'suspect_identified, context, police_force) VALUES',
+    'outcomes': 'INSERT INTO outcomes (crime_id, year_month, police_force, reported_by, falls_within, longitude, latitude,'
                 'location, lsoa_code, lsoa_name, outcome_type, suspect_identified) VALUES',
-    'stop_and_search': 'INSERT INTO crimes_uk_stop_and_search (type, date, part_of_a_policing_operation, '
+    'stop_and_search': 'INSERT INTO stop_and_search (type, year_month_day, part_of_a_policing_operation, '
                        'policing_operation, latitude, longitude, gender, age_range, self_defined_ethnicity, '
                        'officer_defined_ethnicity, legislation, object_of_search, outcome, '
-                       'outcome_linked_to_object_of_search, removal_of_more_than_just_outer_clothing, county) VALUES'
+                       'outcome_linked_to_object_of_search, removal_of_more_than_just_outer_clothing, police_force) VALUES'
 }
 
 PARSE_FUNCTIONS = {
@@ -144,13 +144,13 @@ def insert(dataset_type, root_dir: str, database):
         for filename in os.listdir(root_dir + dirName + '/'):
             if filename.__contains__(FILENAMES[dataset_type]):
                 print('    ' + filename)
-                county = filename[8:filename.index(FILENAMES[dataset_type] + '.csv') - 1].replace('-', ' ')
+                police_force = filename[8:filename.index(FILENAMES[dataset_type] + '.csv') - 1].replace('-', ' ')
 
                 with open(root_dir + dirName + "/" + filename) as csv_file:
                     read_csv = csv.reader(csv_file, delimiter=',')
                     next(read_csv)  # skip first csv row with col names
                     for row in read_csv:
-                        insert_buffer.insert(PARSE_FUNCTIONS[dataset_type](row, county))
+                        insert_buffer.insert(PARSE_FUNCTIONS[dataset_type](row, police_force))
     insert_buffer.flush()
 
 
